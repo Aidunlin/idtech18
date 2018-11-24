@@ -1,12 +1,13 @@
 """
-Welcome to CipherStuff, created by Aidunlin.
-I have chosen to insert all code within functions so that it can be run as many times as you want without restarting the program. There are
-ten ciphers to choose from, and each of them can both encipher and decipher text. Deciphered text will be called 'plaintext', and enciphered
-text will be called 'ciphertext'. Depending on the cipher, you may need to adjust your text according to how the program works. For instance,
-the Morse Code function will only take periods (.) and dashes (-) as dots/dashes.
-Have fun with this program, and do as you will with it.
+Welcome to CipherStuff, created by Aidunlin. I have chosen to insert all code
+within functions so that it can be run as many times as you want without
+restarting the program. There are ten ciphers to choose from, and each of them
+can both encipher and decipher text. Deciphered text is called 'plaintext', and
+enciphered text is called 'ciphertext'. Depending on the cipher, you may need to
+adjust your text according to how the program works. For instance, the Morse
+Code function will only take periods (.) and dashes (-) as dots/dashes. Have fun
+with this program, and do as you will with it.
 """
-
 
 def main():
   print("\n" * 100)
@@ -24,19 +25,28 @@ def main():
   print("9) One-Time Pad")
 
   choice = input().lower()
-  if choice == "0": caesar()
-  if choice == "1": atbash()
-  if choice == "2": keyword()
-  if choice == "3": polybius()
-  if choice == "4": vigenere()
-  if choice == "5": beaufort()
-  if choice == "6": keyword()
-  if choice == "7": morse()
-  if choice == "8": tap()
-  if choice == "9": pad()
+  if choice == "0":
+    caesar()
+  if choice == "1":
+    atbash()
+  if choice == "2":
+    keyword()
+  if choice == "3":
+    polybius()
+  if choice == "4":
+    vigenere()
+  if choice == "5":
+    beaufort()
+  if choice == "6":
+    keyword()
+  if choice == "7":
+    morse()
+  if choice == "8":
+    tap()
+  if choice == "9":
+    pad()
 
   main()
-
 
 def caesar():
   shift = 0
@@ -52,7 +62,8 @@ def caesar():
   print("Shift amount:")
   try:
     shift = int(input())
-    if shift > 25: shift = 25
+    if shift > 25:
+      shift = 25
   except ValueError:
     caesar()
 
@@ -64,14 +75,16 @@ def caesar():
     plain_text = input().lower()
     # Selects new letter to be used 'shift' letters to the right
     for character in plain_text:
-      if character != " ": cipher_text += alphabet[alphabet.find(character) + shift]
+      if character != " ":
+        cipher_text += alphabet[alphabet.find(character) + shift]
 
   if text_choice == "c":
     print("input the ciphertext:")
     cipher_text = input().lower()
     # Same as before, but to the left (with index underflow protection)
     for character in cipher_text:
-      if character != " ": plain_text += alphabet[alphabet.find(character) + (26 - shift)]
+      if character != " ":
+        plain_text += alphabet[alphabet.find(character) + (26 - shift)]
 
   if text_choice in "pc":
     print("\n" * 100)
@@ -86,7 +99,6 @@ def caesar():
     main()
 
   caesar()
-
 
 def atbash():
   plain_text = ""
@@ -106,14 +118,16 @@ def atbash():
     plain_text = input().lower()
     # To find a new letter, use the same index of letter in alphabet with reverse alphabet
     for character in plain_text:
-      if character != " ": cipher_text += reverse_alphabet[alphabet.find(character)]
+      if character != " ":
+        cipher_text += reverse_alphabet[alphabet.find(character)]
 
   if text_choice == "c":
     print("Input the ciphertext:")
     cipher_text = input().lower()
     # Exact opposite of before
     for character in cipher_text:
-      if character != " ": plain_text += alphabet[reverse_alphabet.find(character)]
+      if character != " ":
+        plain_text += alphabet[reverse_alphabet.find(character)]
 
   if text_choice in "pc":
     print("\n" * 100)
@@ -126,7 +140,6 @@ def atbash():
     main()
 
   atbash()
-
 
 def keyword():
   plain_text = ""
@@ -141,10 +154,12 @@ def keyword():
   user_keyword = input().lower()
   # Add the letters of user_keyword to the new alphabet, w/o duplicates
   for character in user_keyword:
-    if character not in new_alphabet: new_alphabet += character
+    if character not in new_alphabet:
+      new_alphabet += character
   # Add remaining letters of alphabet, w/o duplicates
   for index in range(len(alphabet) - len(new_alphabet)):
-    if alphabet[index] not in new_alphabet: new_alphabet += alphabet[index]
+    if alphabet[index] not in new_alphabet:
+      new_alphabet += alphabet[index]
 
   print("Choose plaintext (p) or ciphertext (c):")
   text_choice = input().lower()
@@ -154,14 +169,16 @@ def keyword():
     plain_text = input().lower()
     # To find a new letter, use the same index of letter in alphabet with reverse alphabet
     for character in plain_text:
-      if character != " ": cipher_text += new_alphabet[alphabet.find(character)]
+      if character != " ":
+        cipher_text += new_alphabet[alphabet.find(character)]
 
   if text_choice == "c":
     print("Input the ciphertext:")
     cipher_text = input().lower()
     # Exact opposite of before
     for character in cipher_text:
-      if character != " ": plain_text += alphabet[new_alphabet.find(character)]
+      if character != " ":
+        plain_text += alphabet[new_alphabet.find(character)]
 
   if text_choice in "pc":
     print("\n" * 100)
@@ -176,7 +193,6 @@ def keyword():
     main()
 
   keyword()
-
 
 def polybius():
   # New, condensed alphabet (i/j are combined)
@@ -206,7 +222,8 @@ def polybius():
     for character in plain_text:
       if character != " ":
         for row in alphabet_square:
-          if character in row: cipher_text += str(alphabet_square.index(row) + 1) + str(row.index(character) + 1)
+          if character in row:
+            cipher_text += str(alphabet_square.index(row) + 1) + str(row.index(character) + 1)
 
   if text_choice == "c":
     print("Input the ciphertext:")
@@ -229,7 +246,6 @@ def polybius():
     main()
 
   polybius()
-
 
 def vigenere():
   extended_keyword = ""
@@ -291,7 +307,6 @@ def vigenere():
     main()
 
   vigenere()
-
 
 def beaufort():
   extended_keyword = ""
@@ -359,7 +374,6 @@ def beaufort():
 
   beaufort()
 
-
 def autokey():
   extended_kword = ""
   plain_text = ""
@@ -419,7 +433,6 @@ def autokey():
 
   autokey()
 
-
 def morse():
   plain_text = ""
   cipher_text = ""
@@ -428,12 +441,10 @@ def morse():
   alphabet_list = []
   for character in alphabet_num:
     alphabet_list.append(character)
-  morse_code = [".-", "-...", "-.-.", "-..", ".", "..-.",
-    "--.", "....", "..", ".---", "-.-.", ".-..", "--",
-    "-.", "---", ".--.", "--.-", ".-.", "...", "-",
-    "..-", "...-", ".--", "-..-", "-.--", "--..",
-    ".----", "..---", "...--", "....-", ".....",
-    "-....", "--...", "---..", "----.", "-----"]
+  morse_code = [".-", "-...", "-.-.", "-..", ".", "..-.", "--.", "....", "..",
+    ".---", "-.-.", ".-..", "--", "-.", "---", ".--.", "--.-", ".-.", "...",
+    "-", "..-", "...-", ".--", "-..-", "-.--", "--..", ".----", "..---",
+    "...--", "....-", ".....", "-....", "--...", "---..", "----.", "-----"]
 
   print("\n" * 100)
   print("Morse Code")
@@ -446,9 +457,12 @@ def morse():
     plain_text = input().lower()
     # Very specific way to convert text to Morse
     for character in plain_text:
-      if character != " ": cipher_text += morse_code[alphabet_list.index(character)] + " "
-      if character == " ": cipher_text += "  "
-      if character == ".": cipher_text += "   "
+      if character != " ":
+        cipher_text += morse_code[alphabet_list.index(character)] + " "
+      if character == " ":
+        cipher_text += "  "
+      if character == ".":
+        cipher_text += "   "
 
   if text_choice == "c":
     print("Input the ciphertext:")
@@ -456,7 +470,8 @@ def morse():
     new_word = ""
     # A specifc way to convert Morse to text
     for character in cipher_text:
-      if character != " ": new_word += character
+      if character != " ":
+        new_word += character
       if character == " " and len(new_word) > 0:
         plain_text += alphabet_list[morse_code.index(new_word)]
         new_word = ""
@@ -472,7 +487,6 @@ def morse():
     main()
 
   morse()
-
 
 def tap():
   plain_text = ""
@@ -501,8 +515,10 @@ def tap():
     for character in plain_text:
       if character != " ":
         for row in alphabet_table:
-          if character in row: cipher_text += ("." * (alphabet_table.index(row) + 1)) + " " + ("." * (row.index(character) + 1)) + "  "
-      if character == " ": cipher_text += "/  "
+          if character in row:
+            cipher_text += ("." * (alphabet_table.index(row) + 1)) + " " + ("." * (row.index(character) + 1)) + "  "
+      if character == " ":
+        cipher_text += "/  "
 
   if text_choice == "c":
     print("input the ciphertext:")
@@ -511,7 +527,8 @@ def tap():
     cipher_numbers = ""
     # Finds amount of dots betweens spaces
     for character in cipher_text:
-      if character != " ": new_half_letter += character
+      if character != " ":
+        new_half_letter += character
       if character == " " and len(new_half_letter) > 0:
         cipher_numbers += str(new_half_letter.count("."))
         new_half_letter = ""
@@ -533,7 +550,6 @@ def tap():
     main()
 
   tap()
-
 
 def pad():
   plain_text = ""
@@ -559,7 +575,8 @@ def pad():
       if character != " ":
         cipher_text += extended_alphabet[alphabet.find(character) + alphabet.find(one_time[count])]
         count += 1
-      if character == " ": cipher_text += " "
+      if character == " ":
+        cipher_text += " "
 
   if text_choice == "c":
     print("Input the ciphertext:")
@@ -569,7 +586,8 @@ def pad():
       if character != " ":
         plain_text += extended_alphabet[alphabet.find(character) - alphabet.find(one_time[count])]
         count += 1
-      if character == " ": plain_text += " "
+      if character == " ":
+        plain_text += " "
 
   if text_choice in "pc":
     print("\n" * 100)
@@ -584,7 +602,6 @@ def pad():
     main()
 
   pad()
-
 
 if __name__ == "__main__":
   main()
